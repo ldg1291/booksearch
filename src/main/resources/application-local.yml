@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: 'jdbc:sqlite::memory:'
+    username: ldg1291
+    password: dkssud11!
+
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: create
+    show-sql: true
+    database-platform: com.enigmabridge.hibernate.dialect.SQLiteDialect
