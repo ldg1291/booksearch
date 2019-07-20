@@ -1,4 +1,5 @@
-package com.donggyo.demo
+package com.donggyo.demo.adapter
+
 
 import com.donggyo.demo.dto.bookinfo.BookInfoMeta
 import com.donggyo.demo.dto.bookinfo.BookSearchResultDto

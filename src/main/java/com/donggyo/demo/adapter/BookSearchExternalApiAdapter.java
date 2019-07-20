@@ -1,4 +1,4 @@
-package com.donggyo.demo;
+package com.donggyo.demo.adapter;
 
 import com.donggyo.demo.dto.bookinfo.BookSearchResultDto;
 import com.google.common.collect.ImmutableMap;

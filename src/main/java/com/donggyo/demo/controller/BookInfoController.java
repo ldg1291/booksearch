@@ -1,6 +1,6 @@
 package com.donggyo.demo.controller;
 
-import com.donggyo.demo.BookSearchExternalApiAdapter;
+import com.donggyo.demo.adapter.BookSearchExternalApiAdapter;
 import com.donggyo.demo.dto.bookinfo.BookSearchResultDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
