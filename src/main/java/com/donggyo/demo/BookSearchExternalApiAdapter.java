@@ -44,7 +44,9 @@ public class BookSearchExternalApiAdapter {
 	}
 
 	private String queryBuilder(String query) {
-		StringBuilder stringBuilder = new StringBuilder(kakaoSearchUrl);
+		StringBuilder stringBuilder = new StringBuilder();
+
+		stringBuilder.append(kakaoSearchUrl);
 
 		if(!StringUtils.isEmpty(query)) {
 			stringBuilder.append("query=").append(query);
