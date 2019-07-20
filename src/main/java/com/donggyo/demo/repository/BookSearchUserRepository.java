@@ -10,4 +10,5 @@ public interface BookSearchUserRepository extends JpaRepository<BookSearchUser, 
 	BookSearchUser getUserByUserId(String userId);
 
 	boolean existsByUserId(String userId);
+	boolean existsByUserIdAndPassword(String userId, String password);
 }

@@ -1,10 +1,13 @@
 package com.donggyo.demo.service
 
+import com.donggyo.demo.dto.BookSearchUserCreateRequestDto
 import com.donggyo.demo.repository.BookSearchUserRepository
 import spock.lang.Specification
-import spock.lang.Unroll
 
 class BookSearchUserServiceTest extends Specification {
+
+	def ALREADY_EXISTS_USER = "이미 존재하는 ID입니다. 다른 아이디를 사용해주세요";
+	def WRONG_LOG_IN_DATA = "잘못된 로그인 정보입니다. 올바른 정보를 입력해주세요";
 
 	BookSearchUserService sut
 	BookSearchUserRepository bookSearchUserRepository
@@ -15,21 +18,30 @@ class BookSearchUserServiceTest extends Specification {
 		sut = new BookSearchUserService(bookSearchUserRepository: bookSearchUserRepository)
 	}
 
-	@Unroll
-	def "if there is no such Id then checkIfUserExists must return false"() {
+	def "create new user fails when the user put existing value for userId" () {
 		given:
 		bookSearchUserRepository.existsByUserId("existing_id") >> true
+
+		when:
+		def res = sut.createUser(new BookSearchUserCreateRequestDto(userId: "existing_id", password: "password"))
+
+		then:
+		res.success == Boolean.FALSE
+		res.message == ALREADY_EXISTS_USER
+		res.data == null
+	}
+
+	def "create new user succeed when the user put not existing value for userId"() {
+
+		given:
 		bookSearchUserRepository.existsByUserId("not_existing_id") >> false
 
 		when:
-		def res = sut.checkIfUserExists(USER_ID)
+		def res = sut.createUser(new BookSearchUserCreateRequestDto(userId: "not_existing_id", password: "password"))
 
 		then:
-		res == RESULT
-
-		where:
-		RESULT | USER_ID
-		true   | "existing_id"
-		false  | "not_existing_id"
+		res.success == Boolean.TRUE
+		res.message == ""
+		res.data.userId == "not_existing_id"
 	}
 }
