@@ -4,8 +4,6 @@ server:
 spring:
   datasource:
     url: 'jdbc:sqlite::memory:'
-    username: ldg1291
-    password: dkssud11!
 
   jpa:
     hibernate:

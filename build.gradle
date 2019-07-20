@@ -30,4 +30,10 @@ dependencies {
 	compile 'org.xerial:sqlite-jdbc:3.25.2'
 	compile 'com.querydsl:querydsl-jpa:4.0.3'
 	compile 'com.enigmabridge:hibernate4-sqlite-dialect:0.1.2'
+
+	testCompile(
+			'junit:junit:4.12',
+			'org.codehaus.groovy:groovy-all:2.4.4',
+			'org.spockframework:spock-core:1.0-groovy-2.4'
+	)
 }
