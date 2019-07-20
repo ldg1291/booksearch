@@ -1,10 +1,20 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		maven { url "https://plugins.gradle.org/m2/" }
+	}
+	dependencies {
+		classpath("io.franzbecker:gradle-lombok:1.8")
+	}
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.1.6.RELEASE'
 	id 'java'
 }
 
 apply plugin: 'io.spring.dependency-management'
-
+apply plugin: 'io.franzbecker.gradle-lombok'
 group = 'com.donggyo'
 version = '0.0.1'
 sourceCompatibility = '1.8'
@@ -29,11 +39,48 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.5.6.RELEASE'
 	compile 'org.xerial:sqlite-jdbc:3.25.2'
 	compile 'com.querydsl:querydsl-jpa:4.0.3'
+	compile 'com.querydsl:querydsl-core:4.0.3'
+	compile 'com.querydsl:querydsl-apt:4.0.3'
 	compile 'com.enigmabridge:hibernate4-sqlite-dialect:0.1.2'
 
 	testCompile(
-			'junit:junit:4.12',
-			'org.codehaus.groovy:groovy-all:2.4.4',
 			'org.spockframework:spock-core:1.0-groovy-2.4'
 	)
+}
+
+def queryDslOutput = file("src/main/java/generated")
+
+sourceSets {
+	main {
+		java {
+			srcDir "src/main/java/generated"
+		}
+	}
+}
+
+task generateQueryDSL(type: JavaCompile, group: 'build') {
+	doFirst {
+		if (!queryDslOutput.exists()) {
+			logger.info("Creating `$queryDslOutput` directory")
+
+			if (!queryDslOutput.mkdirs()) {
+				throw new InvalidUserDataException("Unable to create `$queryDslOutput` directory")
+			}
+		}
+	}
+
+	source = sourceSets.main.java
+	classpath = configurations.compile
+	options.compilerArgs = [
+			"-proc:only",
+			"-processor",
+			'com.querydsl.apt.jpa.JPAAnnotationProcessor,lombok.launch.AnnotationProcessorHider$AnnotationProcessor'
+	]
+	destinationDir = queryDslOutput
+}
+
+compileTestJava.dependsOn(generateQueryDSL)
+
+clean {
+	delete queryDslOutput
 }

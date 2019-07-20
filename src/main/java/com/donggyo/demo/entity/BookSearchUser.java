@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Table(name = "book_service_user")
 @EqualsAndHashCode(of = {"userId"})
-public class BookSearchUser {
+public class BookSearchUser implements Serializable {
 
 	@Id
 	@Column(name = "user_id")

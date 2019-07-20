@@ -1,0 +1,19 @@
+package com.donggyo.demo.dto.bookinfo;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@NoArgsConstructor
+public class BookInfoMeta {
+
+	private Boolean is_end;
+	private Long pageable_count;
+	private Long total_count;
+
+	public BookInfoMeta(Boolean is_end, Long pageable_count, Long total_count) {
+		this.is_end = is_end;
+		this.pageable_count = pageable_count;
+		this.total_count = total_count;
+	}
+}

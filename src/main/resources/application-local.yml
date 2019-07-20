@@ -12,3 +12,9 @@ spring:
       ddl-auto: create
     show-sql: true
     database-platform: com.enigmabridge.hibernate.dialect.SQLiteDialect
+
+kakao:
+  api:
+    search:
+      url: https://dapi.kakao.com/v3/search/book?
+    key: 0779d5105f601e50f63fd8b1efc55eec
