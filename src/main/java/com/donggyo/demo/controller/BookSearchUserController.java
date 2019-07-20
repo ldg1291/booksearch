@@ -1,6 +1,6 @@
 package com.donggyo.demo.controller;
 
-import com.donggyo.demo.dto.BookSearchUserCreateRequestDto;
+import com.donggyo.demo.dto.BookSearchUserRequestDto;
 import com.donggyo.demo.dto.BookSearchUserDto;
 import com.donggyo.demo.dto.ResponseDto;
 import com.donggyo.demo.service.BookSearchUserService;
@@ -16,7 +16,12 @@ public class BookSearchUserController {
 	private BookSearchUserService bookSearchUserService;
 
 	@PostMapping("/user/create")
-	public ResponseDto<BookSearchUserDto> createUser (@RequestBody BookSearchUserCreateRequestDto requestDto) {
+	public ResponseDto<BookSearchUserDto> createUser (@RequestBody BookSearchUserRequestDto requestDto) {
 		return bookSearchUserService.createUser(requestDto);
+	}
+
+	@PostMapping("/user/login")
+	public ResponseDto logInUser(@RequestBody BookSearchUserRequestDto requestDto) {
+		return bookSearchUserService.logInWithUser(requestDto);
 	}
 }

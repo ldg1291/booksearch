@@ -1,6 +1,6 @@
 package com.donggyo.demo.service
 
-import com.donggyo.demo.dto.BookSearchUserCreateRequestDto
+import com.donggyo.demo.dto.BookSearchUserRequestDto
 import com.donggyo.demo.repository.BookSearchUserRepository
 import spock.lang.Specification
 
@@ -23,7 +23,7 @@ class BookSearchUserServiceTest extends Specification {
 		bookSearchUserRepository.existsByUserId("existing_id") >> true
 
 		when:
-		def res = sut.createUser(new BookSearchUserCreateRequestDto(userId: "existing_id", password: "password"))
+		def res = sut.createUser(new BookSearchUserRequestDto(userId: "existing_id", password: "password"))
 
 		then:
 		res.success == Boolean.FALSE
@@ -37,11 +37,39 @@ class BookSearchUserServiceTest extends Specification {
 		bookSearchUserRepository.existsByUserId("not_existing_id") >> false
 
 		when:
-		def res = sut.createUser(new BookSearchUserCreateRequestDto(userId: "not_existing_id", password: "password"))
+		def res = sut.createUser(new BookSearchUserRequestDto(userId: "not_existing_id", password: "password"))
 
 		then:
 		res.success == Boolean.TRUE
 		res.message == ""
 		res.data.userId == "not_existing_id"
+	}
+
+	def "create new user succeed when the user put right userId and password"() {
+		given:
+		bookSearchUserRepository.existsByUserIdAndPassword("not_existing_id", "password") >> false
+
+		when:
+		def res = sut.logInWithUser(new BookSearchUserRequestDto(userId: "not_existing_id", password: "password"))
+
+		then:
+		res.success == Boolean.TRUE
+		res.message == ""
+		res.data == Boolean.TRUE
+	}
+
+
+
+	def "create new user fails when the user put wrong userId and password"() {
+		given:
+		bookSearchUserRepository.existsByUserIdAndPassword("existing_id", "password") >> true
+
+		when:
+		def res = sut.logInWithUser(new BookSearchUserRequestDto(userId: "existing_id", password: "password"))
+
+		then:
+		res.success == Boolean.FALSE
+		res.message == WRONG_LOG_IN_DATA
+		res.data == null
 	}
 }
