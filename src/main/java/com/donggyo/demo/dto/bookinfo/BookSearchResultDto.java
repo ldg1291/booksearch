@@ -3,11 +3,12 @@ package com.donggyo.demo.dto.bookinfo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class BookSearchResultDto {
+public class BookSearchResultDto implements Serializable {
 
 	private List<BookInfoDto> documents;
 	private BookInfoMeta meta;

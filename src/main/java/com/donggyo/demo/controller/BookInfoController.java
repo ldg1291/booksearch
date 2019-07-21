@@ -15,7 +15,7 @@ public class BookInfoController {
 	private BookSearchExternalApiAdapter bookSearchExternalApiAdapter;
 
 	@GetMapping("/search")
-	public ResponseEntity<BookSearchResultDto> getBook(@RequestParam(required = true)String query) {
-		return bookSearchExternalApiAdapter.getBook(query);
+	public ResponseEntity<BookSearchResultDto> getBook(@RequestParam(required = true)String query, @RequestParam String sort, @RequestParam Integer page, @RequestParam Integer size, @RequestParam String target) {
+		return bookSearchExternalApiAdapter.getBook(query, sort, page, size, target);
 	}
 }

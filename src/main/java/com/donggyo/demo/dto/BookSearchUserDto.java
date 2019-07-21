@@ -3,11 +3,12 @@ package com.donggyo.demo.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
-public class BookSearchUserDto {
+public class BookSearchUserDto implements Serializable {
 
 	private String userId;
 	private LocalDateTime createdAt;

@@ -29,27 +29,41 @@ public class BookSearchExternalApiAdapter {
 	@Autowired
 	private RestTemplate restTemplate;
 
-	public ResponseEntity<BookSearchResultDto> getBook(String query) {
-		String queryParam = queryBuilder(query);
+	public ResponseEntity<BookSearchResultDto> getBook(String query, String sort, Integer page, Integer size, String target) {
+		String queryParam = queryBuilder(query, sort, page, size, target);
+		HttpEntity<Map<String, String>> header = makeHttpEntity();
 
-		return restTemplate.exchange(queryParam, HttpMethod.GET, makeHttpEntity(), BookSearchResultDto.class);
+		return restTemplate.exchange(queryParam, HttpMethod.GET, header, BookSearchResultDto.class);
 	}
 
 	private HttpEntity<Map<String, String>> makeHttpEntity() {
 
 		MultiValueMap<String, String> header =
-			new LinkedMultiValueMap(Maps.newHashMap(new ImmutableMap.Builder<String, List<String>>().put("Authorization", Lists.newArrayList("KakaoAK " + kakaoApiKey)).build()));
+			new LinkedMultiValueMap(Maps.newHashMap(
+				new ImmutableMap.Builder<String, List<String>>().put("Authorization", Lists.newArrayList("KakaoAK " + kakaoApiKey)).build()));
 
 		return new HttpEntity<>(header);
 	}
 
-	private String queryBuilder(String query) {
+	private String queryBuilder(String query, String sort, Integer page, Integer size, String target) {
 		StringBuilder stringBuilder = new StringBuilder();
 
 		stringBuilder.append(kakaoSearchUrl);
 
-		if(!StringUtils.isEmpty(query)) {
+		if (!StringUtils.isEmpty(query)) {
 			stringBuilder.append("query=").append(query);
+		}
+		if (!StringUtils.isEmpty(target)) {
+			stringBuilder.append("target=").append(target);
+		}
+		if (!StringUtils.isEmpty(sort)) {
+			stringBuilder.append("sort=").append(sort);
+		}
+		if(page != null) {
+			stringBuilder.append("page=").append(page.toString());
+		}
+		if(size != null) {
+			stringBuilder.append("size=").append(size.toString());
 		}
 
 		return stringBuilder.toString();

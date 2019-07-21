@@ -3,11 +3,12 @@ package com.donggyo.demo.dto.bookinfo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Getter
 @NoArgsConstructor
-public class BookInfoDto {
+public class BookInfoDto implements Serializable {
 
 	private String title;
 	private String thumb_nail;

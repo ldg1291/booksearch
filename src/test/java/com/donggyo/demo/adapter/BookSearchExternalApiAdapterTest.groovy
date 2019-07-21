@@ -23,7 +23,7 @@ class BookSearchExternalApiAdapterTest extends Specification {
 		restTemplate.exchange(_,_,_, BookSearchResultDto.class) >> new ResponseEntity<BookSearchResultDto>(new BookSearchResultDto(documents: Lists.newArrayList(), meta:new BookInfoMeta(is_end: true, pageable_count: 0, total_count: 0)),HttpStatus.OK)
 
 		when:
-		def res = sut.getBook("query")
+		def res = sut.getBook("query", "asc",2,3, "")
 
 		then:
 		res.statusCode == HttpStatus.OK

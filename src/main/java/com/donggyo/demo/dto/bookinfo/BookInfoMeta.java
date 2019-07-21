@@ -3,9 +3,11 @@ package com.donggyo.demo.dto.bookinfo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Getter
 @NoArgsConstructor
-public class BookInfoMeta {
+public class BookInfoMeta implements Serializable {
 
 	private Boolean is_end;
 	private Long pageable_count;

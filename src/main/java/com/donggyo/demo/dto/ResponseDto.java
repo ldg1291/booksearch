@@ -3,9 +3,11 @@ package com.donggyo.demo.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Getter
 @NoArgsConstructor
-public class ResponseDto<T> {
+public class ResponseDto<T> implements Serializable {
 
 	private static final String EMPTY_STRING = "";
 	private T data;
