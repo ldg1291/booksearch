@@ -4,16 +4,15 @@ import lombok.Getter;
 
 @Getter
 public enum SortType {
-	ACCURACY("accuracy"),
-	LATEST("latest");
+	ACCURACY("accuracy", "sim"),
+	LATEST("latest", "date");
 
-	private String desc;
+	private String kakaoDesc;
+	private String naverDesc;
 
-	SortType(String desc) {
-		this.desc = desc;
+	SortType(String kakaoDesc, String naverDesc) {
+		this.kakaoDesc = kakaoDesc;
+		this.naverDesc = naverDesc;
 	}
 
-	public static String findByName(String name) {
-		return SortType.valueOf(name).desc;
-	}
 }

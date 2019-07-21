@@ -16,10 +16,10 @@ public class KeywordSearchRateService {
 	private KeywordSearchRateRepository keywordSearchRateRepository;
 
 	public void saveOrUpdate(String keyword) {
-		boolean exists = keywordSearchRateRepository.existsByKeyword(keyword);
+		KeywordSearchRate keywordSearchRate = keywordSearchRateRepository.findByKeyword(keyword);
 
-		if (exists) {
-			keywordSearchRateRepository.updateSearchNumberByKeyword(keyword);
+		if (keywordSearchRate != null) {
+			keywordSearchRateRepository.save(new KeywordSearchRate(keyword, keywordSearchRate.getSearchNumber()+1));
 		} else {
 			keywordSearchRateRepository.save(new KeywordSearchRate(keyword, FIRST_SEARCH));
 		}

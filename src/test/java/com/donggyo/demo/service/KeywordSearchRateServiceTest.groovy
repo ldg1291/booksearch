@@ -32,6 +32,6 @@ class KeywordSearchRateServiceTest extends Specification {
 		sut.saveOrUpdate("keyword")
 
 		then:
-		1 * keywordSearchRateRepository.updateSearchNumberByKeyword(_)
+		1 * keywordSearchRateRepository.save(_)
 	}
 }

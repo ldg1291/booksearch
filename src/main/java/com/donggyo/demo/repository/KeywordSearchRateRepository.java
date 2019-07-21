@@ -16,6 +16,6 @@ public interface KeywordSearchRateRepository extends JpaRepository<KeywordSearch
 
 	KeywordSearchRate findByKeyword(String keyword);
 
-	@Query("update KeywordSearchRate r set r.searchNumber = r.searchNumber+1 where r.keyword = ?1")
-	KeywordSearchRate updateSearchNumberByKeyword(String keyword);
+	@Query("update KeywordSearchRate r set r.searchNumber = ?2 where r.keyword = ?1")
+	KeywordSearchRate updateSearchNumberByKeyword(String keyword, Long searchNumber);
 }
