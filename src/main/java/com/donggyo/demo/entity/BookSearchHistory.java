@@ -1,6 +1,7 @@
 package com.donggyo.demo.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Table(name =  "book_search_history")
 @Entity
 @Getter
+@NoArgsConstructor
 public class BookSearchHistory {
 
 	@Id

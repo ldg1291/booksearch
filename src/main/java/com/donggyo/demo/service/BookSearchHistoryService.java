@@ -19,6 +19,10 @@ public class BookSearchHistoryService {
 		return findTop10ByUserIdOrderBySearchDateDesc(userId).stream().map(this::transformTo).collect(Collectors.toList());
 	}
 
+	BookSearchHistory save(BookSearchHistory history) {
+		return bookSearchHistoryRepository.save(history);
+	}
+
 	private List<BookSearchHistory> findTop10ByUserIdOrderBySearchDateDesc(String userId) {
 		return bookSearchHistoryRepository.findTop10ByUserIdOrderBySearchDateDesc(userId);
 	}
