@@ -15,12 +15,15 @@ public class BookSearchAggregateService {
 	private BookSearchHistoryService bookSearchHistoryService;
 	@Autowired
 	private BookSearchService bookSearchService;
+	@Autowired
+	private KeywordSearchRateService keywordSearchRateService;
 
 	public PagedObjectDto<BookInfoDto> searchBookInfo(String query, String sort, Integer page, Integer size, String target) {
 
 		PagedObjectDto<BookInfoDto> pagedBookInfoDto = bookSearchService.searchBookByQuery(query, sort, page, size, target);
 
 		bookSearchHistoryService.save(new BookSearchHistory(new Random().nextLong(), "userId", query));
+		keywordSearchRateService.saveOrUpdate(query);
 
 		return pagedBookInfoDto;
 	}
